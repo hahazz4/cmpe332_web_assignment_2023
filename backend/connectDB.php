@@ -1,9 +1,9 @@
 <?php
-try {
+try{
     $connection = new PDO('mysql:host=localhost;dbname=university', "root", "");
-} catch (PDOException $e) {
+}catch (PDOException $e){
 	echo "Error";
-    echo "Error!: ". $e->getMessage(). "<br/>";
+    echo "Error!: ". $e -> getMessage(). "<br/>";
 	die();
 }
 ?>
