@@ -30,6 +30,7 @@
             </div>
         </div>
     </nav>
+    
     <div class="container-fluid">
         <div id="welcome" class="container-fluid">
             <div id="welcome-title" class="container-fluid text-center">
@@ -43,6 +44,45 @@
             </div>
         </div>
     </div>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="row">
+                <div class="col">
+                <?php
+                    //List all the orders made on a particular date. 
+                    //The user should be asked for a date and you will list the first and last name of the customer, 
+                    //the items ordered, the total amount of the order, the tip, 
+                    //and the name of the delivery person who delivered the order.
+                    include "connectDB.php";
+
+                    $date = $_POST["date"];
+                    $query = ;
+
+                    $stmt = $connection -> prepare($query);
+                    while($row = $result -> fetch()){
+                        echo 'input ';
+                        echo $row["cust_fname, cust_lname"];
+                        echo ""
+                    }
+                ?>
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <div class="col">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="back-to-top">
             <a id="normalButton" class="btn" href="#navbar-color">Back To Top ^</a>
