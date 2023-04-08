@@ -20,13 +20,13 @@
 
     <nav id="navbar-color" class="navbar border-white navbar-expand-small navbar-expand-md navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a id="navbarBrandStyles" class="navbar-brand" href="\restraurant.php">RestaurantDB</a>
+                <a id="navbarBrandStyles" class="navbar-brand" href="restraurant.php">RestaurantDB</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a id="navLinkStyles" class="nav-link active" aria-current="page" href="\restraurant.php">Home</a>
+                    <a id="navLinkStyles" class="nav-link active" aria-current="page" href="restraurant.php">Home</a>
                     <a id="navLinkStyles" class="nav-link" href="reminders">Reminders</a>
                     <a id="navLinkStyles" class="nav-link" href="HowTo">How-To</a>
                     <a id="navLinkStyles" class="nav-link" href="support">Support</a>
@@ -35,7 +35,7 @@
         </div>
     </nav>
     
-    <div class="container-fluid">
+    <div id="welcome-Banner" class="container-fluid">
         <div id="welcome" class="container-fluid">
             <div id="welcome-title" class="container-fluid text-center">
                 <h2 id="welcome-header">Welcome to RestaurantDB!</h2>
@@ -75,7 +75,7 @@
 
     <footer>
         <div class="back-to-top">
-            <a id="normalButton" class="btn" href="#navbar-color">Back To Top ^</a>
+            <a id="normalButton" class="btn btn-primary" href="#navbar-color">Back To Top ^</a>
         </div>
         <div class="copyright">
             <p class="container-fluid text-center">© 2023 | Zeerak Asim.</p>
