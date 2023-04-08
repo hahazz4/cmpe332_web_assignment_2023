@@ -91,6 +91,10 @@ body
 	font-weight: 600;
 }
 
+#resultCard{
+	margin-bottom: 2rem;
+}
+
 #bot-nav{
     margin-top: 1rem;
     margin-bottom: 0;

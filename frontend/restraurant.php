@@ -50,9 +50,17 @@
     </div>
 
     <div class="container-fluid">
-        <div class="card">
+        <div id="resultCard" class="card">
             <div class="row">
                 <div class="col">
+                    <h2>Our Customers</h2>
+                    <form action="get.php" method="post">
+                        <!-- <?php
+                            include 'get.php';
+                        ?> -->
+                        <input type="submit" value="Get Pet Names">
+                    </form>
+                    
                     <?php
                         include "getOrders.php";
                     ?>
