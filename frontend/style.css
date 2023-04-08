@@ -7,12 +7,8 @@ font-family: 'Roboto', sans-serif;
 body
 {
     background-color: #434cbb;
-    background-image: url("bg.png");
-    background-repeat: no-repeat;
-    background-size: cover;
     height: 100%;
     margin: 0;
-    margin-top: 10rem;
     padding: 0;
     overflow-x: hidden;
 }	
@@ -69,17 +65,30 @@ body
     transition: 0.5s;
 }
 
+#welcome-Banner{
+	padding: 0;
+	background-image: url("balcony-banner.jpg"); 
+	background-repeat: no-repeat; 
+	background-size: cover;
+}
+
 #welcome{
-    background-color: #8a93d3;
+	background-color: black;
+	opacity: 0.5;
+    color: white;
 }
  
-#welcome-header{
-    margin-top: 3rem;
-    padding:0;
-}
+ #welcome-title{
+	font-weight: bold;
+	padding-top: 4.5rem;
+	font-weight: bold;
+ }
 
 #context-style{
     margin-top: 3rem;
+	padding-bottom: 4.5rem;
+	font-size: 2rem;
+	font-weight: 600;
 }
 
 #bot-nav{
@@ -109,18 +118,27 @@ footer {
   text-align: left;
 }
 
-.btn {
+/* .btn {
   display: inline-block;
   padding: 10px;
   border-radius: 5px;
   background-color: #fff;
-  color: #333;
-  text-decoration: none;
+  /*color: #fff;*/
+  /*text-decoration: none;
+  
+  transition: 0.5s;
+  color:white;
+} */
+
+#normalButton{
+  transition: 0.5s;
+  color:white;
+  background-color: #333;
 }
 
-.btn:hover {
-  background-color: #333;
-  color: #fff;
+#normalButton:hover {
+  background-color: white;
+  color: #333;
 }
 
 p {
