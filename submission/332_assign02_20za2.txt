@@ -1,0 +1,201 @@
+drop database if exists restaurantDB;
+create database restaurantDB;
+use restaurantDB;
+
+create TABLE Restaurant(			                                    #restaurant entity
+    r_name VARCHAR(25) PRIMARY KEY NOT NULL,
+    r_url VARCHAR(255),
+    street VARCHAR(55),
+    pc VARCHAR(10),
+    city VARCHAR(25)
+);
+
+create TABLE Menu(                                                      #Relationship wth restaurant
+    res_name VARCHAR(25) NOT NULL,
+    PRIMARY KEY(res_name),
+    FOREIGN KEY (res_name) REFERENCES Restaurant(r_name)
+);
+
+create TABLE Menu_food_items(                                           #multivariate attribute of menu
+    res_name VARCHAR(25) NOT NULL,
+    food_items VARCHAR(255)NOT NULL,
+    food_name VARCHAR(25),
+    price decimal(5,2),
+    PRIMARY KEY(food_items, res_name),
+    FOREIGN KEY(res_name) REFERENCES Restaurant(r_name)
+);
+
+create TABLE Employee(				                                    #employee entity
+	emp_id VARCHAR(25) PRIMARY KEY NOT NULL,
+    f_name VARCHAR(25),
+    l_name VARCHAR(25),
+    email VARCHAR(25),
+    position VARCHAR(25)
+);
+
+create TABLE Customer(				                                    #entity related too the employee entity
+	email VARCHAR(25) PRIMARY KEY NOT NULL,
+    f_name VARCHAR(25),
+    l_name VARCHAR(25),
+    street VARCHAR(55),
+    pc VARCHAR(10),
+    city VARCHAR(25),
+    phone_num VARCHAR(10),
+    e_id VARCHAR(25) NOT NULL,
+    FOREIGN KEY (e_id) REFERENCES Employee(emp_id)                      #for employees who know customers
+);
+
+create TABLE Account(					                                #derived entity of the customer entity
+    cust_email VARCHAR(25) NOT NULL,
+	date_ date,
+    order_id integer,
+    payments decimal(5,2),
+    credits VARCHAR(25),
+    FOREIGN KEY (cust_email) REFERENCES Customer(email)
+);
+
+create TABLE Chef(					                                    #derived entity of employee
+	e_id VARCHAR(25) PRIMARY KEY NOT NULL,
+    FOREIGN KEY (e_id) REFERENCES Employee(emp_id)
+);
+
+create TABLE Chef_cred(					                                #multivariate attribute of chef
+    e_id VARCHAR(25) NOT NULL,
+	certifications VARCHAR(255) NOT NULL,
+    PRIMARY KEY(e_id, certifications),
+    FOREIGN KEY (e_id) REFERENCES Employee(emp_id)
+);
+
+create TABLE Delivery(					                                #derived entity of employee
+	e_id VARCHAR(25) PRIMARY KEY NOT NULL,
+    FOREIGN KEY (e_id) REFERENCES Employee(emp_id)
+);
+
+create TABLE Orders(                                                    #orders entity
+    o_id VARCHAR(25) PRIMARY KEY NOT NULL,
+    delivery_person VARCHAR(25),
+    res_name VARCHAR(25) NOT NULL,
+    cust_email VARCHAR(25) NOT NULL,
+    order_tip decimal(5,2),
+    order_price decimal(5,2),
+    items VARCHAR(255),
+	order_date date,		#added recently
+    placement_time time,
+    FOREIGN KEY (res_name) REFERENCES Restaurant(r_name),
+    FOREIGN KEY (cust_email) REFERENCES Customer(email),
+    FOREIGN KEY (delivery_person) REFERENCES Delivery(e_id)
+);
+
+create TABLE Server_(					                                #derived entity of employee
+	e_id VARCHAR(25) PRIMARY KEY NOT NULL,
+    FOREIGN KEY (e_id) REFERENCES Employee(emp_id)
+);
+
+create TABLE Management(					                            #derived entity of employee
+	e_id VARCHAR(25) PRIMARY KEY NOT NULL,
+    FOREIGN KEY (e_id) REFERENCES Employee(emp_id)
+);
+
+create TABLE Schedule(				                                    #weak entity related too the employee entity
+	e_id VARCHAR(25) NOT NULL,
+    start_times time,
+	end_times time,
+	s_days date NOT NULL,
+    PRIMARY KEY(e_id, s_days),
+    FOREIGN KEY (e_id) REFERENCES Employee(emp_id)
+);
+
+#Inputing values
+INSERT INTO Restaurant (r_name, r_url, street, pc, city) VALUES 
+('The Italian Kitchen', 'http://www.italiankitchen.com', '123 Main St', 'M5V2B5', 'Toronto'),
+('The Burger Joint', 'http://www.burgerjoint.com', '456 Queen St', 'M6J1H4', 'Toronto'),
+('Sushi Palace', 'http://www.sushipalace.com', '789 King St', 'M4W3Y2', 'Toronto'),
+('La Patisserie', 'http://www.lapatisserie.com', '246 Bay St', 'M5J2V4', 'Toronto'),
+('McDonalds', 'https://www.mcdonalds.com', '705 Sir John A. Macdonald Blvd', 'K7M1A3', 'Kingston'),
+('Osmows Shawarma', 'https://osmows.com/menu/', '339 Princess St', 'K7L 1B7', 'Kingston');
+
+INSERT INTO Menu (res_name) VALUES 
+('The Italian Kitchen'),
+('The Burger Joint'),
+('Sushi Palace'),
+('La Patisserie'),
+('McDonalds'),
+('Osmows Shawarma');
+
+INSERT INTO Menu_food_items (res_name, food_items, food_name, price) VALUES 
+('The Italian Kitchen', 'dessert', 'Cannoli', 8.99),
+('The Burger Joint', 'appetizer', 'Poutine', 8.99),
+('Sushi Palace', 'appetizer', 'Edamame', 6.99),
+('La Patisserie', 'appetizer', 'Quiche Lorraine', 7.99),
+('McDonalds', 'dessert', 'Baked Apple Pie', 1.25),
+('Osmows Shawarma', 'appetizer', 'Greek Salad', 10.50);
+
+INSERT INTO Employee (emp_id, f_name, l_name, email, position) VALUES
+('1001', 'John', 'Doe', 'johndoe@example.com', 'Server'),
+('1002', 'Jane', 'Smith', 'janesmith@example.com', 'Chef'),
+('1003', 'Mark', 'Johnson', 'markjohnson@example.com', 'Delivery Driver'),
+('1004', 'Samantha', 'Williams', 'samanthawilliams@example.com', 'Server'),
+('1005', 'David', 'Lee', 'davidlee@example.com', 'Manager'),
+('1006', 'Megan', 'Davis', 'megandavis@example.com', 'Chef'),
+('1007', 'Michael', 'Jordan', 'mj@example.com', 'Chef'),
+('1008', 'Naruto', 'Uzumaki', 'nu@example.com', 'Chef'),
+('1009', 'Thorfinn', 'Thor', 'tt@example.com', 'Chef'),
+('1010', 'Eren', 'Yeager', 'ey@example.com', 'Chef');
+
+INSERT INTO Customer (email, f_name, l_name, street, pc, city, phone_num, e_id) VALUES
+('johndoe@gmail.com', 'John', 'Doe', '123 Main St', 'M4P 2E3', 'Toronto', '416-555-1234', '1003'),
+('janedoe@yahoo.com', 'Jane', 'Doe', '456 Pine St', 'L4L 6G1', 'Mississauga', '647-555-4321', '1001'),
+('mikesmith@hotmail.com', 'Mike', 'Smith', '789 Oak Ave', 'V3V 1G9', 'Surrey', '778-555-5678', '1006'),
+('jennifertaylor@gmail.com', 'Jennifer', 'Taylor', '321 Elm St', 'N2M 1J1', 'Kitchener', '519-555-8765', '1007'),
+('davidsilver@yahoo.com', 'David', 'Silver', '654 Oak St', 'L3R 1L1', 'Markham', '905-555-2345', '1010'),
+('emilybrown@hotmail.com', 'Emily', 'Brown', '987 Queen St', 'L5L 3B3', 'Oakville', '905-555-6789', '1005');
+
+INSERT INTO Account (cust_email, date_, order_id, payments, credits) VALUES
+('johndoe@gmail.com', '2022-05-01', 1234, 25.99, 'loyalty points'),
+('janedoe@yahoo.com', '2022-04-15', 5678, 42.50, 'gift card'),
+('mikesmith@hotmail.com', '2022-05-21', 9101, 17.25, 'coupon'),
+('jennifertaylor@gmail.com', '2022-05-02', 1122, 38.75, 'loyalty points'),
+('davidsilver@yahoo.com', '2022-04-30', 3344, 52.00, 'gift card'),
+('emilybrown@hotmail.com', '2022-05-14', 5566, 29.99, 'coupon');
+
+INSERT INTO Chef (e_id) VALUES
+('1002'),
+('1006'),
+('1007'),
+('1008'),
+('1009'),
+('1010');
+
+INSERT INTO Chef_cred (e_id, certifications) VALUES
+('1002', 'Culinary Institute of America'),
+('1006', 'Le Cordon Bleu'),
+('1007', 'Johnson & Wales University'),
+('1008', 'Auguste Escoffier School of Culinary Arts'),
+('1009', 'Institute of Culinary Education'),
+('1010', 'The Art Institutes');
+
+INSERT INTO Delivery (e_id) VALUES
+('1003');
+
+INSERT INTO Orders (o_id, delivery_person, res_name, cust_email, order_tip, order_price, items, order_date, placement_time) VALUES
+('OR1234', '1003', 'The Burger Joint', 'johndoe@gmail.com', 3.00, 8.99, 'Poutine', '2008-01-22', '12:30:00'),
+('OR5678', '1003', 'Sushi Palace', 'janedoe@yahoo.com', 3.50, 6.99, 'Edamame', '2008-01-22', '19:45:00'),
+('OR9101', '1003', 'Osmows Shawarma', 'mikesmith@hotmail.com', 2.25, 10.50, 'Greek Salad', '2008-01-22', '21:15:00'),
+('OR1122', '1003', 'La Patisserie', 'jennifertaylor@gmail.com', 2.75, 7.99, 'Quiche Lorraine', '2008-01-22', '18:30:00'),
+('OR3344', '1003', 'The Italian Kitchen', 'davidsilver@yahoo.com', 10.00, 8.99, 'Cannoli', '2008-01-22', '21:00:00'),
+('OR5566', '1003', 'McDonalds', 'emilybrown@hotmail.com', 0.00, 1.25, 'Baked Apple Pie', '2008-01-24', '16:00:00');
+
+INSERT INTO Server_ (e_id) VALUES
+('1001'),
+('1004');
+
+INSERT INTO Management (e_id) VALUES
+('1005');
+
+INSERT INTO Schedule (e_id, start_times, end_times, s_days) VALUES
+('1001', '08:00:00', '14:00:00', '2023-12-01'),
+('1002', '14:00:00', '22:00:00', '2023-12-02'),
+('1003', '10:00:00', '18:00:00', '2023-12-03'),
+('1004', '11:00:00', '19:00:00', '2023-12-04'),
+('1005', '09:00:00', '17:00:00', '2023-12-05'),
+('1006', '06:00:00', '14:00:00', '2023-12-06');

@@ -1,8 +1,8 @@
 <table>
 <?php
     include 'connectDB.php';
-    //$date= $_POST["date"];
-	$date= '2008-01-22';
+    $date= $_POST["date"];
+	//$date= '2008-01-22'; //debugging purpose
 	$stmt = $connection->prepare(
 	'SELECT c.f_name, c.l_name, o.items, o.order_price, o.order_tip, d1.f_name as delivery_f_name,
     d1.l_name as delivery_l_name 

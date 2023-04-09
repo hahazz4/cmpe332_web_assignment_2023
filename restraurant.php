@@ -27,9 +27,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a id="navLinkStyles" class="nav-link active" aria-current="page" href="restraurant.php">Home</a>
-                    <a id="navLinkStyles" class="nav-link" href="reminders">Reminders</a>
-                    <a id="navLinkStyles" class="nav-link" href="HowTo">How-To</a>
-                    <a id="navLinkStyles" class="nav-link" href="support">Support</a>
+                    <a id="navLinkStyles" class="nav-link" href="about.php">About</a>
+                    <a id="navLinkStyles" class="nav-link" href="support.php">Support</a>
                 </div>
             </div>
         </div>
@@ -49,34 +48,37 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div id="cardsContainer" class="container-fluid">
         <div id="resultCard" class="card">
             <div class="row">
                 <div class="col">
-                    <h2>Orders Made on Date</h2>
-                    <form action="get.php" method="post">
-                        <input type="submit" value="Get Pet Names">
+                    <h2>Orders Made on Desired Date</h2>
+                    <form action="result1.php" method="post">
+                        <input type="date" id="date" name="date" required><br>
+                        <input type="submit" value="Submit Date">
                     </form>
-                    
-                    <?php
-                        include "getOrders.php";
-                    ?>
                 </div>
+            </div>
+        </div>
 
+        <div id="resultCard" class="card">
+            <div class="row">
                 <div class="col">
                     <h2>Date & Number of Orders</h2>
-                    <form action="get.php" method="post">
-                        <input type="submit" value="Get Pet Names">
+                    <form action="result2.php" method="post">
+                        <label for="date">Enter the order date here:</label>
+                        <input type="date" id="date" name="date" required><br>
+                        <input type="submit" value="Submit Order">
                     </form>
-                    
-                    <?php
-                        include "getDateAndNumOrders.php";
-                    ?>
                 </div>
+            </div>
+        </div>
 
+        <div id="resultCard" class="card">
+            <div class="row">
                 <div class="col">
                     <h2>New Customer</h2>
-                    <form method="post" action="insertCustomer.php">
+                    <form method="post" action="result3.php">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required><br>
                         
@@ -103,14 +105,29 @@
                         
                         <input type="submit" value="Add Customer">
                     </form>
-
-                    <?php
-                        include "insertCustomer.php";
-                    ?>
                 </div>
+            </div>
+        </div>
 
+        <div id="resultCard" class="card">
+            <div class="row">
                 <div class="col">
-
+                    <h2>Employee Schedule</h2>
+                    <form method="POST" action="result4.php">
+                        <select name="employee">
+                        <option value="">Select An Employee</option>
+                        <?php
+                            include 'connectDB.php';
+                            $stmt = $connection->prepare('SELECT * FROM employee');
+                            $stmt->execute();
+                            
+                            while($row = $stmt->fetch(PDO::FETCH_ASSOC))
+                                echo "<option value='" . $row['emp_id'] . "'>" . $row["f_name"] . " " . $row["l_name"] . "</option>";
+                        ?>
+                        </select>
+                        <br><br>
+                        <input type="submit" value="View Schedule">
+	                </form>
                 </div>
             </div>
         </div>
