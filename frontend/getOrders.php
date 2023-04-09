@@ -1,10 +1,6 @@
 <table>
 <?php
     include 'connectDB.php';
-    //List all the orders made on a particular date. 
-    //The user should be asked for a date and you will list the first and last name of the customer, 
-    //the items ordered, the total amount of the order, the tip, 
-    //and the name of the delivery person who delivered the order.
     //$date= $_POST["date"];
 	$date= '2008-01-22';
 	$stmt = $connection->prepare(
@@ -18,24 +14,22 @@
 	);
 	$stmt->bindParam(':date', $date);
 	$stmt->execute();
-	//$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	
-	//last two rows for delivery person first and last name
-    //if($result->num_rows>0){
-	echo "<table>";
-	echo "<tr><th>Customer Name</th><th>Items Ordered</th><th>Order Price</th><th>Order Tip</th><th>Delivery Person</th></tr>";
-	while($row = $stmt->fetch()){
-		echo "<tr>";
-		echo "<td>" . $row["f_name"] . " " . $row["l_name"] . "</td>";
-		echo "<td>" . $row["items"] . "</td>";
-		echo "<td>" . $row["order_price"] . "</td>";
-		echo "<td>" . $row["order_tip"] . "</td>";
-		echo "<td>" . $row["delivery_f_name"] . " " . $row["delivery_l_name"] . "</td>";
-		echo "</tr>";
-	}
+	$rowCount = $stmt->rowCount();
+    if ($rowCount > 0){
+		echo "<table>";
+		echo "<tr><th>Customer Name</th><th>Items Ordered</th><th>Order Price</th><th>Order Tip</th><th>Delivery Person</th></tr>";
+		while($row = $stmt->fetch()){
+			echo "<tr>";
+			echo "<td>" . $row["f_name"] . " " . $row["l_name"] . "</td>";
+			echo "<td>" . $row["items"] . "</td>";
+			echo "<td>" . $row["order_price"] . "</td>";
+			echo "<td>" . $row["order_tip"] . "</td>";
+			echo "<td>" . $row["delivery_f_name"] . " " . $row["delivery_l_name"] . "</td>";
+			echo "</tr>";
+		}
+	}else
+		echo "No Results Found :(";
 	echo "</table>";
-
-	//}else
-		//echo "No Results Found :(";
 ?>
 </table>

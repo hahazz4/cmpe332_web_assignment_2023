@@ -53,11 +53,8 @@
         <div id="resultCard" class="card">
             <div class="row">
                 <div class="col">
-                    <h2>Our Customers</h2>
+                    <h2>Orders Made on Date</h2>
                     <form action="get.php" method="post">
-                        <!-- <?php
-                            include 'get.php';
-                        ?> -->
                         <input type="submit" value="Get Pet Names">
                     </form>
                     
@@ -67,11 +64,49 @@
                 </div>
 
                 <div class="col">
-
+                    <h2>Date & Number of Orders</h2>
+                    <form action="get.php" method="post">
+                        <input type="submit" value="Get Pet Names">
+                    </form>
+                    
+                    <?php
+                        include "getDateAndNumOrders.php";
+                    ?>
                 </div>
 
                 <div class="col">
+                    <h2>New Customer</h2>
+                    <form method="post" action="insertCustomer.php">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required><br>
+                        
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone" name="phone" required><br>
 
+                        <label for="firstName">First Name:</label>
+                        <input type="text" id="firstName" name="firstName" required><br>
+                        
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" id="lastName" name="lastName" required><br>
+                        
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="address" required><br>
+                        
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" required><br>
+                        
+                        <label for="zip">Zip Code:</label>
+                        <input type="text" id="zip" name="zip" required><br>
+
+                        <label for="related_employee_id">Know an employee? Enter their employee ID:</label>
+                        <input type="text" id="related_employee_id" name="related_employee_id" required><br>
+                        
+                        <input type="submit" value="Add Customer">
+                    </form>
+
+                    <?php
+                        include "insertCustomer.php";
+                    ?>
                 </div>
 
                 <div class="col">
